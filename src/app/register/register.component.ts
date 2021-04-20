@@ -245,9 +245,15 @@ export class RegisterComponent implements OnInit {
     console.log(obj)
     
     if(this.id == 0)
-      this.service.postCustomer(obj);
+      this.service.postCustomer(obj)
+      .subscribe() , error => (
+        console.log('error creating customer')
+      );
     else
-      this.service.putCustomer(obj);
+      this.service.putCustomer(obj)
+      .subscribe() , error => (
+        console.log('error updating customer')
+      );
     
     this.customer = undefined
     this.id = 0
