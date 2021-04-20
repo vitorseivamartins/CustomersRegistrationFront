@@ -1,0 +1,55 @@
+
+
+<h3>Customer</h3>
+<form [formGroup]="formGroup">
+    <input type="string" formControlName="Name" placeholder="Name...">
+    <input type="date" formControlName="BirthdayDate" placeholder="Birthday Date...">
+    <input type="string" formControlName="CpfNumber" placeholder="Cpf Number...">
+    <input type="string" formControlName="RgNumber" placeholder="Rg Number...">
+</form>
+
+<h3>Phones</h3>
+<form [formGroup]="phoneForm">
+    <div formArrayName="phones" *ngFor="let phone of phoneForm.get('phones')['controls']; let i = index;">
+        <div [formGroupName]="i">
+            <input type="text" formControlName="id" hidden="true">
+            <input type="text" formControlName="Identification" placeholder="Identification...">
+            <input type="text" formControlName="PhoneNumber" placeholder="Phone Number...">
+
+            <button (click)="removePhone(i)">Remove</button>
+            <button (click)="addPhone()">Add</button>
+        </div>
+    </div>
+</form>
+
+<h3>Addresses</h3>
+<form [formGroup]="addressForm">
+    <div formArrayName="addresses" *ngFor="let phone of addressForm.get('addresses')['controls']; let i = index;">
+        <div [formGroupName]="i">
+            <input type="text" formControlName="id" hidden="true">
+            <input type="text" formControlName="Identification" placeholder="Identification...">
+            <input type="text" formControlName="StreetAddress" placeholder="Street Address...">
+
+            <button (click)="removeAddress(i)">Remove</button>
+            <button (click)="addAddress()">Add</button>
+        </div>
+    </div>
+</form>
+
+<h3>Social Medias</h3>
+<form [formGroup]="socialMediaForm">
+    <div formArrayName="medias" *ngFor="let medias of socialMediaForm.get('medias')['controls']; let i = index;">
+        <div [formGroupName]="i">
+            <input type="text" formControlName="id" hidden="true">
+            <input type="text" formControlName="Identification" placeholder="Identification...">
+            <input type="text" formControlName="SocialMediaLink" placeholder="Social Media Link...">
+
+            <button (click)="removeSocialMedia(i)">Remove</button>
+            <button (click)="addSocialMedia()">Add</button>
+        </div>
+    </div>
+</form>
+
+<button type="submit" (click)="SaveCustomer()">Save Customer</button>
+
+<!-- <pre>{{customer | json}}</pre> -->

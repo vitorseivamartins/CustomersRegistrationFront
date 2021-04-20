@@ -1,0 +1,14 @@
+
+<div *ngIf="!showRegistrationForm">
+    <h3>Customers</h3>
+    <ng-container >
+        <tr *ngFor="let customer of customers | paginate: { itemsPerPage: 3, currentPage: currentPage } ">
+            <td>{{ customer.name }}</td>
+            <td><button (click)="editCustomer(customer)">Edit</button></td>           
+        </tr>
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+    </ng-container>
+    <button type="submit" (click)="registerNewCustomer()">new customer</button>
+</div>
+
+<app-register *ngIf="showRegistrationForm" [customer]="selectedCustomer" (customerSaved)="customerSaved($event)"></app-register>
