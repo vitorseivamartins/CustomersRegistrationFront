@@ -79,21 +79,23 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  public populatePhone(number: INumber) {
+  public populatePhone(number: INumber) {    
     const phones = this.phoneForm.get('phones') as FormArray
 
-    let form: FormGroup
-    if (phones.length > 1)
+    let form: FormGroup = phones.controls[0] as FormGroup
+    if (phones.controls[0].get('id').value > 0)
+    {
       form = this.createPhoneFormGroup();
-    else
-      form = phones.controls[0] as FormGroup
-
+      phones.push(form)
+    }
+ 
     if(number != undefined)
     {
       form.get('id').setValue(number.idNumber);
       form.get('Identification').setValue(number.identification);
       form.get('PhoneNumber').setValue(number.phoneNumber);
     }
+    
   }
 
   public addPhone() {
@@ -120,11 +122,12 @@ export class RegisterComponent implements OnInit {
   public populateAddress(adress: IAddress) {
     const adresses = this.addressForm.get('addresses') as FormArray
 
-    let form: FormGroup
-    if (adresses.length > 1)
+    let form: FormGroup = adresses.controls[0] as FormGroup
+    if (adresses.controls[0].get('id').value > 0)
+    {
       form = this.createAddressFormGroup();
-    else
-      form = adresses.controls[0] as FormGroup
+      adresses.push(form)
+    }
 
     if(adress != undefined)
     {
@@ -158,11 +161,12 @@ export class RegisterComponent implements OnInit {
   public populateSocialMedia(socialMedia: ISocialMedia) {
     const medias = this.socialMediaForm.get('medias') as FormArray
 
-    let form: FormGroup
-    if (medias.length > 1)
+    let form: FormGroup = medias.controls[0] as FormGroup
+    if (medias.controls[0].get('id').value > 0)
+    {
       form = this.createSocialMediaFormGroup();
-    else
-      form = medias.controls[0] as FormGroup
+      medias.push(form)
+    }
 
     if(socialMedia != undefined)
     {
@@ -203,7 +207,7 @@ export class RegisterComponent implements OnInit {
       //console.log(element.value.Identification)
       if(element.value.Identification != null && element.value.Identification != "" && element.value.PhoneNumber != null && element.value.PhoneNumber != "")
         phonesArray.push({
-          idNumber: element.value.id == ""? 0 : element.value.id,
+          idNumber: element.value.id == "" || element.value.id == undefined? 0 : element.value.id,
           identification: element.value.Identification,
           phoneNumber: element.value.PhoneNumber
         })
